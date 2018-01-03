@@ -7,8 +7,13 @@ AWS_ID="662301466295"
 MONGO_DOMAIN="ec2-54-205-77-206.compute-1.amazonaws.com"
 TAG="latest"
 FRONTEND_BUCKET="focus21notesappfrontend"
+CF_DISTRIBUTIONID="E29UUHZVQTN70S"
+BACKEND_APP="focus21-notesapp-elb-154020615.us-east-1.elb.amazonaws.com"
+
 
 echo "Building Production Frontend"
+sed -i 's#localhost#''#$BACKEND_APP' src/config.js
+
 yarn build
 echo "Building image..."
 docker build --build-arg mongo_domain=$MONGO_DOMAIN -t mahfouz/focus21notesapp:$TAG .
@@ -30,6 +35,8 @@ aws cloudformation update-stack --stack-name Focus21Notesapp --use-previous-temp
   ParameterKey=VpcId,UsePreviousValue=true
 
 
+
+
 echo "Updating Frontend Static Files"
 aws s3 sync ./build/ s3://$FRONTEND_BUCKET --acl public-read
-aws cloudfront create-invalidation --distribution-id E29UUHZVQTN70S --paths /
+aws cloudfront create-invalidation --distribution-id $CF_DISTRIBUTIONID --paths /
