@@ -1,0 +1,50 @@
+/* Header component related styles */
+
+div#root {
+  border-top: 1rem solid #ccc;
+}
+
+header h1 {
+  font-size: 3rem;
+  margin: 1rem;
+  font-family: 'Lobster', cursive;
+  font-weight: normal;
+}
+
+header h1 {
+  animation: balance 3s ease-in-out 500ms 1 alternate;
+  animation-iteration-count: 1;
+}
+
+header nav {
+  margin: 2rem;
+}
+
+@keyframes "balance" {
+  0% {
+  }
+
+  15% {
+    transform: rotateX(-50deg);
+  }
+
+  30% {
+    transform: rotateX(50deg);
+  }
+
+  45% {
+    transform: rotateX(-20deg);
+  }
+
+  60% {
+    transform: rotateX(20deg);
+  }
+
+  75% {
+    transform: rotateX(-10deg);
+  }
+
+  100% {
+    transform: rotateX(0deg);
+  }
+}
